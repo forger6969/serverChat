@@ -8,9 +8,10 @@ app.use(express.json());
 
 // ------------------ ДАННЫЕ ------------------
 let messages = [
-  { user: "Alice", text: "Привет!" },
-  { user: "Bob", text: "Привет, Alice!" }
+  { user: "Alice", text: "Привет!", time: "10:00" },
+  { user: "Bob", text: "Привет, Alice!", time: "10:05" }
 ];
+
 
 let users = [
   { "id": 1, "login": "alice123", "password": "12345", "name": "Alice", "surname": "Johnson", "gmail": "alice@gmail.com", "number": "+998901234567" },
@@ -86,17 +87,22 @@ let users = [
   { "id": 71, "login": "sean062", "password": "sean62", "name": "Sean", "surname": "Perry", "gmail": "sean@gmail.com", "number": "+998906999999" },
   { "id": 72, "login": "taylor063", "password": "taylor63", "name": "Taylor", "surname": "Powell", "gmail": "taylor@gmail.com", "number": "+998907000000" },
 ]
+
 // ------------------ СООБЩЕНИЯ ------------------
 app.get("/messages", (req, res) => {
   res.json(messages);
 });
 
 app.post("/messages", (req, res) => {
-  const { user, text } = req.body;
+  const { user, text, time } = req.body;
   if (!user || !text) {
     return res.status(400).json({ error: "user и text обязательны" });
   }
-  const message = { user, text };
+  const message = {
+    user,
+    text,
+    time: time || new Date().toLocaleTimeString() // добавлено
+  };
   messages.push(message);
   res.json(message);
 });
