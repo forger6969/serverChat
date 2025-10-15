@@ -8,8 +8,8 @@ app.use(express.json());
 
 // ------------------ ДАННЫЕ ------------------
 let messages = [
-  { user: "Alice", text: "Привет!", time: "10:00" },
-  { user: "Bob", text: "Привет, Alice!", time: "10:05" }
+  { user: "Alice", text: "Привет!", time: new Date() },
+  { user: "Bob", text: "Привет, Alice!", time: new Date() }
 ];
 
 
